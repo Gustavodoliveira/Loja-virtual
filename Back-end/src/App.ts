@@ -3,18 +3,29 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import { connect } from './db/Conn';
+import { User } from './db/entities/User';
+import { UserModel, Users } from './db/models/ModelUser';
+import route from './routes/UserRoutes';
 
 const CorsOptions = {
 	credentials: true,
 	origin: '*'
 };
 
-const app = express();
+const user = Users;
 
+const app = express();
+app.use(express.json())
 app.use(cors(CorsOptions));
 app.use(helmet());
+
+//routes
+
+app.use('/user', route)
+
 connect.sync()
 	.then(() => {
+		
 		console.log('Connect the dataBase');
 		app.listen(process.env.PORT, () => {
 		console.log('Server is runnig');
