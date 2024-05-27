@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"moduleResolution": "Node",
+		"target": "es2017",
+		"module": "commonjs",
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"lib": [
+			"ES6"
+		],
+		"strict": true,
+		"esModuleInterop": true
+	},
+	"include": [
+		"src/**/*"
+	],
+	"exclude": [
+		"node_modules"
+	]
+	/* Skip type checking all .d.ts files. */
+}
