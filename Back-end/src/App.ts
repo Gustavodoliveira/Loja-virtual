@@ -6,6 +6,7 @@ import { connect } from './db/Conn';
 import { User } from './db/entities/User';
 import { UserModel, Users } from './db/models/ModelUser';
 import route from './routes/UserRoutes';
+import { CompanyModel ,Company } from './db/models/ModelCompany';
 
 const CorsOptions = {
 	credentials: true,
@@ -13,6 +14,7 @@ const CorsOptions = {
 };
 
 const user = Users;
+const company = Company;
 
 const app = express();
 app.use(express.json())
