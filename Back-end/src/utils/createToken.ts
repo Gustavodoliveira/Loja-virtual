@@ -1,12 +1,11 @@
 require('dotenv').config();
 import  Jwt, { JsonWebTokenError }  from "jsonwebtoken";
 import { UserModel } from "../db/models/ModelUser";
-import { User } from "../db/entities/User";
 
 export class Token {
 	private secret: string  = process.env.SECRET as string
 
-	async createToken(user: User, ) {
+	async createToken(user: UserModel, ) {
 		try {
 			const token = Jwt.sign({
 			Id: user.id

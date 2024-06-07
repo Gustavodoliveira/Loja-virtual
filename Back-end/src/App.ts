@@ -3,7 +3,6 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import { connect } from './db/Conn';
-import { User } from './db/entities/User';
 import { UserModel, Users } from './db/models/ModelUser';
 import route from './routes/UserRoutes';
 import { CompanyModel ,Company } from './db/models/ModelCompany';
