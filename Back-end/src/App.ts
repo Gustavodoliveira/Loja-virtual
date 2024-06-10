@@ -15,7 +15,7 @@ const CorsOptions = {
 const user = Users;
 const company = Company;
 
-const app = express();
+export const app = express();
 app.use(express.json())
 app.use(cors(CorsOptions));
 app.use(helmet());
@@ -33,7 +33,7 @@ connect.sync()
 });
 	})
 	.catch((err) => {
-		console.log(err);
+		return "Deu Erro"
 		
 	})
 
