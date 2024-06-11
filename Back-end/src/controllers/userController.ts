@@ -5,12 +5,14 @@ import { UserModel, Users } from '../db/models/ModelUser';
 
 export class UserController {
 	static async createUser(req: Request, res: Response) {
-		const { name, cpf, phone } = req.body
+		const { name, cpf, phone, password, confirmPassword } = req.body
 
 
 		if(!name) return res.status(401).json('name is required')
 		if(!cpf) return res.status(401).json('cpf is required')
 		if(!phone) return res.status(401).json('phone is required')
+		if(!password) return res.status(401).json('password is required')
+		if(!confirmPassword) return res.status(401).json('Confirm password is required')
 
 		const newId  = createId()
 

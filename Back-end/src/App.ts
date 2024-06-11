@@ -1,5 +1,5 @@
 require('dotenv').config();
-import express from 'express';
+import express, { Application } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import { connect } from './db/Conn';
@@ -15,26 +15,40 @@ const CorsOptions = {
 const user = Users;
 const company = Company;
 
-export const app = express();
-app.use(express.json())
-app.use(cors(CorsOptions));
-app.use(helmet());
+export class App {
+	public app: Application
 
-//routes
+	constructor() {
+		this.app = express();
+		this.Config();
+		this.Routes();
+	}
 
-app.use('/user', route)
+	Config() {
+		this.app.use(express.json());
+		this.app.use(cors(CorsOptions));
+		this.app.use(helmet())
+	}
 
-connect.sync()
-	.then(() => {
-		
-		console.log('Connect the dataBase');
-		app.listen(process.env.PORT, () => {
-		console.log('Server is runnig');
-});
-	})
-	.catch((err) => {
-		return "Deu Erro"
-		
-	})
+	Routes() {
+		this.app.use('/user', route)
+	}
+
+	Listen(port: undefined | String){
+		this.app.listen(port, () => {
+			console.log('Server is Running');
+		})
+	}
+}
+
+//export const app = express();
+//app.use(express.json())
+//app.use(cors(CorsOptions));
+//app.use(helmet());
+
+////routes
+
+//app.use('/user', route)
+
 
 
