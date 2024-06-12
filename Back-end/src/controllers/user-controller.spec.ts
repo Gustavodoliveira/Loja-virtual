@@ -14,7 +14,7 @@ import { connect } from '../db/Conn';
 		cpf: '1230556',
 		phone: '123',
 		password: '123',
-		confirmPassword:'123'
+		confirmPassword:'1234'
 	});
 	expect(resp.statusCode).toEqual(200);
 	expect(resp.body).toHaveProperty('message');

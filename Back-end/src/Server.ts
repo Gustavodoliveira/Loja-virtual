@@ -4,17 +4,25 @@ import { App }from "./App";
 import { Company } from "./db/models/ModelCompany";
 import { Users } from "./db/models/ModelUser";
 
+class Server {
+	private db = connect
+	private user = Users;
+	private company = Company;
+	private app = new App();
 
-const user = Users;
-const company = Company;
-const app = new App()
+	constructor() {
+		this.Listen();
+	}
 
+	Listen() {
+		this.db.sync().then(() => {
+			console.log('Connect the dataBase');
+			this.app.Listen(process.env.PORT)
+		}).catch((err) => {
+			return console.log(err);
+			
+		})
+	}
+}
 
-connect.sync()
-	.then(() => {
-		console.log('Connect the dataBase');
-		app.Listen(process.env.PORT);
-	})
-	.catch((err) => {
-		return "Deu Erro"
-	})
+const serve = new Server();

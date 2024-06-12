@@ -12,8 +12,6 @@ const CorsOptions = {
 	origin: '*'
 };
 
-const user = Users;
-const company = Company;
 
 export class App {
 	public app: Application

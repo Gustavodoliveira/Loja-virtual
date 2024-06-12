@@ -8,15 +8,18 @@ export class UserController {
 		const { name, cpf, phone, password, confirmPassword } = req.body
 
 
-		if(!name) return res.status(401).json('name is required')
-		if(!cpf) return res.status(401).json('cpf is required')
-		if(!phone) return res.status(401).json('phone is required')
-		if(!password) return res.status(401).json('password is required')
-		if(!confirmPassword) return res.status(401).json('Confirm password is required')
+		if(!name) return res.status(401).json({ message: 'name is required'})
+		if(!cpf) return res.status(401).json({ message: 'cpf is required'})
+		if(!phone) return res.status(401).json({ message: 'phone is required'})
+		if(!password) return res.status(401).json({message: 'password is required'})
+		if(!confirmPassword) return res.status(401).json({message: 'Confirm password is required}'})
+		
+		if(password != confirmPassword) return res.status(401).json({message: 'You password is different confirm password'})
+
 
 		const newId  = createId()
 
-
+		
 		const userExist = await Users.findOne({where: { cpf: cpf}})
 		
 		if(userExist) res.status(401).json({message: 'Cpf already exist try another'});
@@ -28,7 +31,8 @@ export class UserController {
 				cpf,
 				id: newId,
 				name,
-				phone
+				phone,
+				password
 			})
 			const token = await new Token().createToken(user)
 			res.status(200).json({
