@@ -8,11 +8,11 @@
 		"lib": [
 			"ES6"
 		],
-		"strict": true,
 		"esModuleInterop": true
 	},
 	"include": [
-		"src/**/*"
+		"src/**/*",
+		"node_modules/entities"
 	],
 	"exclude": [
 		"node_modules"

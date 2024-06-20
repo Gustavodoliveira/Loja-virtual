@@ -2,10 +2,7 @@ require('dotenv').config();
 import express, { Application } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-import { connect } from './db/Conn';
-import { UserModel, Users } from './db/models/ModelUser';
-import route from './routes/UserRoutes';
-import { CompanyModel ,Company } from './db/models/ModelCompany';
+import route from './routes/userRoutes';
 
 const CorsOptions = {
 	credentials: true,
@@ -19,18 +16,16 @@ export class App {
 	constructor() {
 		this.app = express();
 		this.Config();
-		this.Routes();
 	}
 
 	Config() {
 		this.app.use(express.json());
 		this.app.use(cors(CorsOptions));
 		this.app.use(helmet())
-	}
-
-	Routes() {
 		this.app.use('/user', route)
 	}
+
+
 
 	Listen(port: undefined | String){
 		this.app.listen(port, () => {

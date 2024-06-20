@@ -1,13 +1,11 @@
 require('dotenv').config();
-import { connect } from "./db/Conn";
 import { App }from "./App";
-import { Company } from "./db/models/ModelCompany";
-import { Users } from "./db/models/ModelUser";
+import { connect } from "./database/conn";
+import { Users } from "./database/models/user";
 
 class Server {
 	private db = connect
 	private user = Users;
-	private company = Company;
 	private app = new App();
 
 	constructor() {
