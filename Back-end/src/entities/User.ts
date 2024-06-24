@@ -1,5 +1,8 @@
+import { UUID } from "sequelize";
+import { UUIDV4 } from "sequelize";
+import { uuid as v4 } from "uuidv4";
 
-import { uuid } from "uuidv4"
+
 
 export class User {
 	private readonly id?: string
@@ -13,9 +16,6 @@ export class User {
 	constructor(props: Omit<User, "id">, id?: string) {
 		Object.assign(this, props)
 
-		if(!this.id) {
-			this.id = uuid();
-		}
 	}
 	
 }

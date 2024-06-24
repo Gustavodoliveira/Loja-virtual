@@ -11,6 +11,7 @@ export interface ModelUser extends Model<InferAttributes<ModelUser>, InferCreati
 }
 
 export const Users = connect.define<ModelUser>('users', {
+
 name: {
 	type: DataTypes.STRING,
 	allowNull: false,
