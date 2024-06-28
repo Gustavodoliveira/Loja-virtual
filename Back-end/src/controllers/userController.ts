@@ -1,6 +1,7 @@
 import { Request, Response, response } from "express";
 import { UserRepository } from "../repositories/repos/UserRepo";
 import { Validate } from '../utils/Validate';
+import bcrypt from "bcrypt"
 
 export class UserController{
 	private static repo: UserRepository = new UserRepository()
@@ -20,14 +21,26 @@ static async register(req: Request, res: Response) {
 		if(!UserController.validate.isEmail(email)) return res.status(400).json('E-mail is not valid')
 		if(!UserController.validate.isPassword(password)) return res.status(400).json('Password is not valid')
 
+		if(password != confirmPassword) return res.status(400).json('Password is different Confirm Password')
+      
+      const rounds = 12
+
+			let passwordHash: string
+
+			passwordHash = await bcrypt.hash(password, rounds)
+
 		try {
 			const resp =  await UserController.repo.create({
-				name, email, phone, password, CPF
+				name, email, phone, password: passwordHash, CPF
 			});
 			return res.status(201).json(resp)
 		} catch (error) {
 			return res.status(400).json(error?.message)
 			
 		}
+	}
+
+	static async Login(req: Request, res: Response) {
+
 	}
 }

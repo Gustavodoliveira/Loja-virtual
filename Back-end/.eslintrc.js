@@ -29,7 +29,7 @@ module.exports = {
 	rules: {
 		indent: ['error', 'space'],
 		'linebreak-style': ['error', 'unix'],
-		quotes: ['error', 'single'],
+		quotes: ['error', 'always'],
 		semi: ['error', 'true'],
 	},
 };

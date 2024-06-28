@@ -47,7 +47,7 @@ name: {
 	allowNull: false,
 	validate: {
 		len:  {
-			args: [1, 11],
+			args: [1, 20],
 			msg: 'Campo deve conter entre 1 e 11 characters'
 		}
 	}
@@ -58,7 +58,7 @@ name: {
 	allowNull: false,
 	validate: {
 		len:  {
-			args: [1, 30],
+			args: [1, 200],
 			msg: 'Campo não pode ficar vazio'
 		}
 	}
