@@ -1,9 +1,9 @@
-import { Router } from "express";
-import { UserController } from "../controllers/userController";
-import { UserRepository } from "../repositories/repos/UserRepo";
+import { Router } from 'express';
+import { UserController } from '../controllers/userController';
 
 const route = Router();
 
 route.post('/create', UserController.register);
+route.post('/login', UserController.Login);
 
-export default route
+export default route;

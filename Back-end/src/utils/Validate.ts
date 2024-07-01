@@ -1,12 +1,12 @@
 export class Validate {
 
 	isEmail(email: string) {
-		const isEmail = /\S+@\S+\.\S+/
-		return isEmail.test(email)
+		const isEmail = /\S+@\S+\.\S+/;
+		return isEmail.test(email);
 	}
 	isPassword(password: string): boolean {
-		const isPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/
-	 return isPassword.test(password)
+		const isPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/;
+		return isPassword.test(password);
 	}
 }
 

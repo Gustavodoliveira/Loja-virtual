@@ -7,21 +7,28 @@ export  class  UserRepository implements IRepoUser {
 
 	constructor(private model = Users ) {}
 
- async create(data: User): Promise<string | Error> {
+	async create(data: User): Promise<string | Error> {
 
-		const userExist = await this.findByEmail(data.email)
+		const userExist = await this.findByEmail(data.email);
 		
-			if(userExist != null) {
-			 throw new Error('User already exist');
-			}
+		if(userExist != null) {
+			throw new Error('User already exist');
+		}
 
-		const user = new User(data) 
-		this.model.create(user)
-		return 'create user success'			
+		const user = new User(data); 
+		this.model.create(user);
+		return 'create user success';			
 	}
 
 	findByEmail(email: string): Promise<null | User> {
-			const alreadyUser = this.model.findOne({where: {email: email}})
-			return alreadyUser
+		const alreadyUser = this.model.findOne({where: {email: email}});
+		return alreadyUser;
+	}
+
+	async Login(email: string) {
+		const userExist =  await this.findByEmail(email);
+
+		if(!userExist) throw new Error('User not exist');
+		return userExist;
 	}
 }
