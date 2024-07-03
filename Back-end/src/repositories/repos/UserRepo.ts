@@ -1,11 +1,13 @@
 
 import { User } from '../../entities/User';
 import { IRepoUser } from '../IRepoUser';
-import { Users } from '../../database/models/user';
+import { ModelUser, Users } from '../../database/models/user';
 
 export  class  UserRepository implements IRepoUser {
 
 	constructor(private model = Users ) {}
+
+
 
 	async create(data: User): Promise<string | Error> {
 
@@ -20,9 +22,13 @@ export  class  UserRepository implements IRepoUser {
 		return 'create user success';			
 	}
 
-	findByEmail(email: string): Promise<null | User> {
-		const alreadyUser = this.model.findOne({where: {email: email}});
+	async findByEmail(email: string): Promise<null | User> {
+		
+		const alreadyUser = await this.model.findOne({where: {email: email}});
+
 		return alreadyUser;
+	
+		
 	}
 
 	async Login(email: string) {
@@ -30,5 +36,22 @@ export  class  UserRepository implements IRepoUser {
 
 		if(!userExist) throw new Error('User not exist');
 		return userExist;
+	}
+
+	async Update(email: string): Promise<User | Error> {
+		const user = await this.findByEmail(email);
+
+		if(!user) throw new Error('User not exist'); 
+		
+		return user;
+	}
+
+	async Delete(email: string): Promise<string | Error> {
+		const user = await this.findByEmail(email);
+		
+		if(!user) throw new Error('User not exist');
+
+		return 'User Exist';
+		
 	}
 }

@@ -3,14 +3,14 @@ import { UserRepository } from '../repositories/repos/UserRepo';
 import { Validate } from '../utils/Validate';
 import bcrypt from 'bcrypt';
 
-export class UserController{
+export class UserController {
 	private static rounds = 12;
 	private static repo: UserRepository = new UserRepository();
 	private static validate = new Validate();
 	constructor() {
 	}
 
-	static async register(req: Request, res: Response) {
+	static async create(req: Request, res: Response) {
 		const { name, email, phone, password, confirmPassword, CPF} = req.body;
 
 		if(!name) return res.status(400).json('Name is Required');
@@ -45,18 +45,45 @@ export class UserController{
 		
 		const { email, password} = req.body;
 
-		const user = await UserController.repo.Login(email);
+		try {
+			
+			const user = await UserController.repo.Login(email);
+	
+			const checkPassword = await bcrypt.compare(password, user.password);
+	
+			if(!checkPassword) return res.status(403).json('Password is incorrect');
+			
+			return res.status(200).cookie('isLogged', {
+				authenticated: true,
+				user: user.email
+			}).json('Login Success');
+		} catch (error) {
+			return res.status(406).json(error.message);
+		}
+	}	
+	
+	static async Update(req: Request, res: Response) {
+		try {
+			const { email } = req.body;
 
-		const checkPassword = await bcrypt.compare(password, user.password);
+			const something = await UserController.repo.Update(email);
 
-		if(!checkPassword) return res.status(400).json('Password is incorrect');
-		
-		return res.status(200).cookie('isLogged', {
-			authenticated: true,
-			user: user.email
-		}).json('Login Success');
-		
-		
-		
+			console.log(something);
+		} catch (error) {
+			console.log(error.message);
+			
+		}
 	}
+
+	static async Delete(req: Request, res: Response){
+		const { email } = req.body;
+		try {
+			const user = UserController.repo.Delete(email);
+			console.log(user);
+			
+		} catch (error) {
+			console.log(error.message);
+		}
+	}
+		
 }
