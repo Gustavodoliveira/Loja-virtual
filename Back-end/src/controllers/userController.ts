@@ -2,6 +2,7 @@ import { Request, Response, } from 'express';
 import { UserRepository } from '../repositories/repos/UserRepo';
 import { Validate } from '../utils/Validate';
 import bcrypt from 'bcrypt';
+import { User } from '../entities/User';
 
 export class UserController {
 	private static rounds = 12;
@@ -63,10 +64,17 @@ export class UserController {
 	}	
 	
 	static async Update(req: Request, res: Response) {
+		const { email, newEmail  } = req.body;
 		try {
-			const { email } = req.body;
+			const userExist = await UserController.repo.findByEmail(email);
 
-			const something = await UserController.repo.Update(email);
+			const something = await UserController.repo.Update(userExist, {
+				email: newEmail,
+				name: userExist.name,
+				phone: userExist.phone,
+				password: userExist.password,
+				CPF: userExist.CPF
+			});
 
 			console.log(something);
 		} catch (error) {

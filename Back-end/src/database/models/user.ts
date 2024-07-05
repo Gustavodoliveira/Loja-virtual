@@ -2,6 +2,7 @@ import { DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequ
 import { connect } from '../conn';
 
 export interface ModelUser extends Model<InferAttributes<ModelUser>, InferCreationAttributes<ModelUser>> {
+	id: string
 	name: string, 
 	email: string,
 	phone: string,
@@ -10,7 +11,11 @@ export interface ModelUser extends Model<InferAttributes<ModelUser>, InferCreati
 }
 
 export const Users = connect.define<ModelUser>('users', {
-
+	id: {
+		type: DataTypes.STRING,
+		allowNull: false,
+		primaryKey: true,
+	},
 	name: {
 		type: DataTypes.STRING,
 		allowNull: false,

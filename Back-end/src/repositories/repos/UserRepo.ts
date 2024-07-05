@@ -1,7 +1,7 @@
 
 import { User } from '../../entities/User';
 import { IRepoUser } from '../IRepoUser';
-import { ModelUser, Users } from '../../database/models/user';
+import {Users } from '../../database/models/user';
 
 export  class  UserRepository implements IRepoUser {
 
@@ -38,12 +38,18 @@ export  class  UserRepository implements IRepoUser {
 		return userExist;
 	}
 
-	async Update(email: string): Promise<User | Error> {
-		const user = await this.findByEmail(email);
+	async Update(user: User, data: User): Promise<string | Error> {
+		const userExist = await this.findByEmail(user.email);
 
-		if(!user) throw new Error('User not exist'); 
+		if(!userExist) throw new Error('User not exist');
 		
-		return user;
+		try {
+			await this.model.update(data, {where: { id: userExist.id}});
+			return 'Update success';
+		} catch (error) {
+			console.log(error);
+			
+		}
 	}
 
 	async Delete(email: string): Promise<string | Error> {
