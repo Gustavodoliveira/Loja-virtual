@@ -1,4 +1,4 @@
-import { uuid } from 'uuidv4';
+import  { v4 }  from 'uuid';
 
 
 
@@ -15,7 +15,7 @@ export class User {
 	constructor(props: Omit<User, 'id'>, id?: string) {
 		Object.assign(this, props);
 		if(!id) {
-			this.id = uuid();
+			this.id = v4();
 		}
 
 	}

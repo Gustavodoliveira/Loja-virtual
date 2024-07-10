@@ -1,9 +1,18 @@
+import cookieParser from 'cookie-parser';
 export class Validate {
+	isCookieValid(cookie: string): boolean {
+		const isCookieValid = cookieParser.signedCookie(cookie, `${process.env.SECRETCOOKIE}`);
+
+		if(!isCookieValid) return false;
+
+		return true;
+	}
 
 	isEmail(email: string) {
 		const isEmail = /\S+@\S+\.\S+/;
 		return isEmail.test(email);
 	}
+	
 	isPassword(password: string): boolean {
 		const isPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$*&@#])[0-9a-zA-Z$*&@#]{8,}$/;
 		return isPassword.test(password);
