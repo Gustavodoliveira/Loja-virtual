@@ -1,8 +1,9 @@
 
-import { User } from '../../entities/User';
+import { IUser, User } from '../../entities/User';
 import { IRepoUser} from '../IRepoUser';
 import { Users } from '../../database/models/user';
 import { Token } from '../../utils/Token';
+import { Request } from 'express';
 
 
 
@@ -52,19 +53,32 @@ export  class  UserRepository implements IRepoUser {
 		const userExist =  await this.findByEmail(email);
 
 		if(!userExist) throw new Error('User not exist');
-		return userExist;
+
+		const createToken = this.token.createToken(userExist);
+		
+		return {
+			user: userExist,
+			token: createToken
+		};
 	}
 
-	async Update(user: User, data: User): Promise<string | Error> {
-		const userExist = await this.findByEmail(user.email);
+	async Update(req: Request, data: IUser): Promise<string | Error> {
+
+		const token = this.token.getToken(req);
+		
+		const id  = this.token.getIdByToken(token);
+		const userExist = await this.findById(id);
 
 		if(!userExist) throw new Error('User not exist');
+
+		console.log(data.email.length);
+		
 		
 		try {
-			await this.model.update(data, {where: { id: userExist.id}});
+			await this.model.update(data, {where: { id: id}});
 			return 'Update success';
 		} catch (error) {
-			console.log(error);
+			return error;
 			
 		}
 	}

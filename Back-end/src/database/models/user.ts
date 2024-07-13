@@ -51,8 +51,8 @@ export const Users = connect.define<ModelUser>('users', {
 		allowNull: false,
 		validate: {
 			len:  {
-				args: [1, 20],
-				msg: 'Campo deve conter entre 1 e 11 characters'
+				args: [1, 30],
+				msg: 'Campo deve conter entre 1 s 20 characters'
 			}
 		}
 	},

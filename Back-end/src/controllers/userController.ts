@@ -54,16 +54,19 @@ export class UserController {
 
 		try {
 			
-			const user = await UserController.repo.Login(email);
-	
-			const checkPassword = await bcrypt.compare(password, user.password);
-	
+			const resp = await UserController.repo.Login(email);
+			
+			const checkPassword = await bcrypt.compare(password, resp.user.password);
+			
 			if(!checkPassword) return res.status(403).json('Password is incorrect');
 			
 			
 			return res.status(200).cookie('isLogged', {
 				authenticated: true,
-			}).json('Login Success');
+			}).json({
+				message: 'Login Success',
+				token: resp.token
+			});
 		} catch (error) {
 			return res.status(406).json(error.message);
 		}
@@ -71,15 +74,26 @@ export class UserController {
 	
 	static async Update(req: Request, res: Response) {
 		const { name, email, phone, password, confirmPassword } = req.body;
-		const cookie  = req.headers.cookie;
-		const cookieValid = UserController.validate.isCookieValid(cookie);
 
-		console.log(cookieValid);
+		if(password != confirmPassword) return res.status(400).json('Password is different Confirm Password');
+		
+		let passwordHash: string;
+		if(password) {
+			passwordHash = await bcrypt.hash(password, UserController.rounds);
+
+		}
 		
 		try {
-			UserController.repo.Update();
+			const resp = await UserController.repo.Update(req, {
+				name: name,
+				email: email,
+				phone: phone, 	
+				password: passwordHash
+			});
+
+			res.status(200).json(resp);
 		} catch (error) {
-			console.log(error.message);
+			res.status(400).json(error);
 			
 		}
 	}
