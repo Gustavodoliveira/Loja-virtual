@@ -83,12 +83,17 @@ export  class  UserRepository implements IRepoUser {
 		}
 	}
 
-	async Delete(email: string): Promise<string | Error> {
-		const user = await this.findByEmail(email);
+	async Delete(req: Request): Promise<string | Error> {
+		const token = this.token.getToken(req);
+		const id = this.token.getIdByToken(token);
+
+		const user = await this.findById(id);
 		
 		if(!user) throw new Error('User not exist');
 
-		return 'User Exist';
+		await this.model.destroy({where: { id: id}});
+
+		return 'Delete user success';
 		
 	}
 }

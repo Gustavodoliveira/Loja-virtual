@@ -99,13 +99,14 @@ export class UserController {
 	}
 
 	static async Delete(req: Request, res: Response){
-		const { email } = req.body;
+	
 		try {
-			const user = UserController.repo.Delete(email);
-			console.log(user);
+			const resp = await UserController.repo.Delete(req);
+			
+			res.status(200).json(resp);
 			
 		} catch (error) {
-			console.log(error.message);
+			res.status(400).json(error.message);
 		}
 	}
 		

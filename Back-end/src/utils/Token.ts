@@ -40,7 +40,6 @@ export class Token implements IToken{
 	getIdByToken(token: string): string  {
 		const decoded  = jwt.verify(token, `${process.env.JWTSECRET}`) as IModelToken; 
 		const  id    = decoded.id;
-		console.log(decoded);
 		
 
 		return id;

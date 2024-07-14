@@ -11,5 +11,5 @@ export interface IRepoUser {
 	findByEmail(email: string): Promise<null | User>
 	Login(email: string, password: string): Promise<unknown | Error>
 	Update(req: Request, data: IUser): Promise<string | Error>
-	Delete(email: string): Promise<string | Error>
+	Delete(req: Request): Promise<string | Error>
 }
