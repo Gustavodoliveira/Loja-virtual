@@ -2,11 +2,13 @@
 require('dotenv').config();
 import { App }from './App';
 import { connect } from './database/conn';
+import { products } from './database/models/product';
 import { Users } from './database/models/user';
 
 class Server {
-	private db = connect;
-	private user = Users;
+	private readonly db = connect;
+	private readonly user = Users;
+	private readonly = products;
 	private app = new App();
 
 	constructor() {

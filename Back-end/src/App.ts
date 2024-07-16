@@ -5,6 +5,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import route from './routes/userRoutes';
 import session from 'express-session';
+import ProductRoutes from './routes/productRoutes';
 
 const store = new session.MemoryStore();
 
@@ -35,6 +36,7 @@ export class App {
 		this.app.use(cors(CorsOptions));
 		this.app.use(helmet());
 		this.app.use('/user', route);
+		this.app.use('/product', ProductRoutes);
 	}
 
 
