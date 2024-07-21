@@ -7,7 +7,7 @@ const middleware = new Middlewares();
 
 route.post('/create', UserController.create);
 route.post('/login', UserController.Login);
-route.patch('/update',middleware.checkToken, UserController.Update);
-route.delete('/delete', middleware.checkToken, UserController.Delete);
+route.patch('/update',middleware.checkToken, middleware.checkCookie, UserController.Update);
+route.delete('/delete', middleware.checkToken, middleware.checkCookie, UserController.Delete);
 
 export default route;
