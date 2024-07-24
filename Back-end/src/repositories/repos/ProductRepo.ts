@@ -1,5 +1,5 @@
 import { products } from '../../database/models/product';
-import {  Product } from '../../entities/Product';
+import {  IProduct, Product } from '../../entities/Product';
 import { Token } from '../../utils/Token';
 import { IRepoProduct } from '../IRepoProduct';
 
@@ -18,13 +18,32 @@ export class ProductRepository implements IRepoProduct {
 		}
 			
 	}
-	//Update(id: string, data: IProduct): Promise<string | Error> {
-			
-	//}
+	async Update(id: string, data: IProduct): Promise<string | Error> {
+		
+		
+		try {
+			const productExist =  await this.findById(id);
+			if(!productExist) throw new Error();
 
-	//delete(): Promise<string | Error> {
+			await this.model.update(data, {where: { id: id}});
+			return 'Update success';
+		} catch (error) {
+			throw new Error('Product not exist');
+		}
+	}
+
+	async delete(id: string): Promise<string | Error> {
+		try {
+			const productExist = await this.findById(id);
+			if(!productExist) throw new Error();
+
+			await this.model.destroy({where: { id: id }});
+			return 'Product delete success';
+		} catch (error) {
+			throw new Error('Product not exist');
+		}
 			
-	//}
+	}
 
 	async findAll(): Promise<Product[] | Error> {
 		try {
@@ -43,7 +62,7 @@ export class ProductRepository implements IRepoProduct {
 
 			return product;
 		} catch (error) {
-			throw new Error(error.message);
+			throw new Error('Product not exist');
 		}
 		
 			

@@ -10,5 +10,7 @@ const midds = [ middlewares.checkToken, middlewares.checkCookie ];
 ProductRoutes.get('/allProducts', midds, ProductController.findAllProducts);
 ProductRoutes.get('/getProduct', midds, ProductController.findByIdProduct);
 ProductRoutes.post('/create', midds, ProductController.create);
+ProductRoutes.patch('/update', ProductController.Update);
+ProductRoutes.delete('/delete', ProductController.Delete);
 
 export default ProductRoutes;	

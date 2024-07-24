@@ -49,4 +49,32 @@ export class ProductController {
 		}
 	}
 
+	static async Update(req: Request, res: Response) {
+		const { id, name, description, price  } = req.body;
+
+
+
+		try {
+			const resp = await ProductController.repo.Update(id, {
+				name,
+				description,
+				price
+			});
+			res.status(200).json({resp});
+		} catch (error) {
+			res.status(404).json(error.message);
+			
+		}
+	}
+
+	static async Delete(req: Request, res: Response) {
+		const { id } = req.body;
+
+		try {
+			const resp = await ProductController.repo.delete(id);
+			res.status(200).json({resp});
+		} catch (error) {
+			res.status(404).json(error.message);
+		}
+	}
 }
