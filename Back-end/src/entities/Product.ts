@@ -11,7 +11,7 @@ export class Product  {
 	public name: string;
 	public description: string;
 	public price: number;
-	public userId?: string;
+	public owner: string;
 	//public images: File[];
 
 	constructor(props: Omit<Product, 'id'>, id?: string) {

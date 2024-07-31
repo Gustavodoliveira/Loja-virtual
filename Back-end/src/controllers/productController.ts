@@ -7,13 +7,13 @@ export class ProductController {
 	private static repo: IRepoProduct = new ProductRepository();
 
 	static async create(req: Request, res: Response) {
-		const { name, description, price } = req.body;
+		const { name, description, price, owner } = req.body;
 
 		if(!name) return res.status(400).json('name is required');
 		if(!description) return res.status(400).json('description is required');
 		if(!price) return res.status(400).json('price is required');
 		
-		const product = new Product({name,description, price});
+		const product = new Product({name,description, price, owner});
 		
 		try {
 			const resp = await  ProductController.repo.create(product);
@@ -52,7 +52,8 @@ export class ProductController {
 	static async Update(req: Request, res: Response) {
 		const { id, name, description, price  } = req.body;
 
-
+		//#TODO: create property stars in products, and exception treatment in error onwer id nonexistent and not null
+		//#TODO: create routes, myproducts, 
 
 		try {
 			const resp = await ProductController.repo.Update(id, {

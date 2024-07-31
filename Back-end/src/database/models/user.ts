@@ -1,5 +1,6 @@
 import { DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
 import { connect } from '../conn';
+import { products } from './product';
 
 export interface ModelUser extends Model<InferAttributes<ModelUser>, InferCreationAttributes<ModelUser>> {
 	id: string
@@ -66,5 +67,11 @@ export const Users = connect.define<ModelUser>('users', {
 				msg: 'Campo não pode ficar vazio'
 			}
 		}
-	}
+	},
+
+});
+
+Users.hasMany(products, {
+	as: 'products',
+	foreignKey: 'owner'
 });

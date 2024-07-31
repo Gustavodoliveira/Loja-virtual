@@ -6,9 +6,12 @@ export interface IProducts extends Model<InferAttributes<IProducts>, InferCreati
 	name: string,
 	description: string,
 	price: number
+	owner: string
 }
 
-export const products = connect.define<IProducts>('products', {
+
+
+export const products =  connect.define<IProducts>('products', {
 	id: {
 		type: DataTypes.STRING,
 		primaryKey: true,
@@ -24,7 +27,13 @@ export const products = connect.define<IProducts>('products', {
 	price: {
 		type: DataTypes.FLOAT,
 		allowNull: false
+	},
+	owner: {
+		type: DataTypes.STRING,
+		unique: true,
+		allowNull: false,
 	}
 });
+
 
 
