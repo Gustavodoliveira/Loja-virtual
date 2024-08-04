@@ -1,5 +1,5 @@
-import { products } from '../../database/models/product';
-import {  IProduct, Product } from '../../entities/Product';
+import { IProducts, products } from '../../database/models/product';
+import {   IProductUpdate, Product } from '../../entities/Product';
 import { Token } from '../../utils/Token';
 import { IRepoProduct } from '../IRepoProduct';
 
@@ -18,7 +18,7 @@ export class ProductRepository implements IRepoProduct {
 		}
 			
 	}
-	async Update(id: string, data: IProduct): Promise<string | Error> {
+	async Update(id: string, data: IProductUpdate): Promise<string | Error> {
 		
 		
 		try {
@@ -45,7 +45,7 @@ export class ProductRepository implements IRepoProduct {
 			
 	}
 
-	async findAll(): Promise<Product[] | Error> {
+	async findAll(): Promise<IProducts[] | Error> {
 		try {
 			const allProducts = await this.model.findAll();
 
@@ -56,7 +56,7 @@ export class ProductRepository implements IRepoProduct {
 			
 	}  
 
-	async findByIdOwner(id: string): Promise<Product[] | Error> {
+	async findByIdOwner(id: string): Promise<IProducts[] | Error> {
 		try {
 			const products = await this.model.findAll({where: { owner: id}});
 			return products;
@@ -65,7 +65,7 @@ export class ProductRepository implements IRepoProduct {
 		}
 	}
 
-	async findById(id: string): Promise<Product | Error> {
+	async findById(id: string): Promise<IProducts | Error> {
 		try {
 			const product = await this.model.findOne({ where: { id: id}});
 

@@ -1,6 +1,6 @@
 import { v4 } from 'uuid';
 
-export interface IProduct {
+export interface IProductUpdate {
 	name: string
 	description: string
 	price: number

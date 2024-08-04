@@ -68,9 +68,6 @@ export class ProductController {
 	static async Update(req: Request, res: Response) {
 		const { id, name, description, price  } = req.body;
 
-		//#TODO: create property stars in products, and exception treatment in error onwer id nonexistent and not null
-		//#TODO: create routes, myproducts, 
-
 		try {
 			const resp = await ProductController.repo.Update(id, {
 				name,

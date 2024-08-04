@@ -1,4 +1,4 @@
-import { DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
+import { DataTypes, InferAttributes, InferCreationAttributes, Model,  } from 'sequelize';
 import { connect } from '../conn';
 
 export interface IProducts extends Model<InferAttributes<IProducts>, InferCreationAttributes<IProducts>>{
@@ -13,8 +13,9 @@ export interface IProducts extends Model<InferAttributes<IProducts>, InferCreati
 
 export const products =  connect.define<IProducts>('products', {
 	id: {
-		type: DataTypes.STRING,
 		primaryKey: true,
+		type: DataTypes.STRING,
+		allowNull: false
 	},
 	name: {
 		type: DataTypes.STRING,
@@ -32,7 +33,7 @@ export const products =  connect.define<IProducts>('products', {
 		type: DataTypes.STRING,
 		unique: true,
 		allowNull: false,
-	}
+	},
 });
 
 
