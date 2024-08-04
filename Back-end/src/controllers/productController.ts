@@ -2,9 +2,11 @@ import { IRepoProduct } from '../repositories/IRepoProduct';
 import { ProductRepository } from '../repositories/repos/ProductRepo';
 import { Request, Response } from 'express';
 import { Product } from '../entities/Product';
+import { Token } from '../utils/Token';
 
 export class ProductController {
 	private static repo: IRepoProduct = new ProductRepository();
+	private static token: Token = new Token();
 
 	static async create(req: Request, res: Response) {
 		const { name, description, price, owner } = req.body;
@@ -47,6 +49,20 @@ export class ProductController {
 		} catch (error) {
 			return res.status(500).json(error.message);
 		}
+	}
+
+	static async myProducts(req: Request, res: Response) {
+		const token = ProductController.token.getToken(req);
+		const id = ProductController.token.getIdByToken(token);
+
+		try {
+			const resp = await ProductController.repo.findByIdOwner(id);
+
+			return res.status(200).json(resp);
+		} catch (error) {
+			res.status(500).json(error.message);
+		}
+		
 	}
 
 	static async Update(req: Request, res: Response) {

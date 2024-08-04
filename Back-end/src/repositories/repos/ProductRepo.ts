@@ -56,6 +56,15 @@ export class ProductRepository implements IRepoProduct {
 			
 	}  
 
+	async findByIdOwner(id: string): Promise<Product[] | Error> {
+		try {
+			const products = await this.model.findAll({where: { owner: id}});
+			return products;
+		} catch (error) {
+			throw new Error('Error');
+		}
+	}
+
 	async findById(id: string): Promise<Product | Error> {
 		try {
 			const product = await this.model.findOne({ where: { id: id}});
