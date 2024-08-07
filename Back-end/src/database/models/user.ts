@@ -8,7 +8,8 @@ export interface ModelUser extends Model<InferAttributes<ModelUser>, InferCreati
 	email: string,
 	phone: string,
 	password: string,
-	CPF: string
+	CPF: string,
+	imageUrl: string
 }
 
 export const Users = connect.define<ModelUser>('users', {
@@ -68,6 +69,9 @@ export const Users = connect.define<ModelUser>('users', {
 			}
 		}
 	},
+	imageUrl: {
+		type: DataTypes.STRING,
+	}
 
 });
 

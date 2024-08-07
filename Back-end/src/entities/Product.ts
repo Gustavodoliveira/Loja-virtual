@@ -1,5 +1,6 @@
 import { v4 } from 'uuid';
 
+//TODO: @Gustavodoliveira create order item
 export interface IProductUpdate {
 	name: string
 	description: string

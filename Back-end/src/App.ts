@@ -6,6 +6,7 @@ import helmet from 'helmet';
 import route from './routes/userRoutes';
 import session from 'express-session';
 import ProductRoutes from './routes/productRoutes';
+import  path  from 'path';
 
 const store = new session.MemoryStore();
 
@@ -33,6 +34,7 @@ export class App {
 			cookie: { maxAge: 24 * 60 * 60 * 1000, secure: true, signed: true },
 			store
 		}));
+		this.app.use('public', express.static(path.resolve(__dirname, './public')));
 		this.app.use(cors(CorsOptions));
 		this.app.use(helmet());
 		this.app.use('/user', route);

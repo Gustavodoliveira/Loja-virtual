@@ -16,11 +16,15 @@ export class User {
 	public phone: string;
 	public password: string;
 	public CPF: string;
+	public imageUrl?: string;
 
 	constructor(props: Omit<User, 'id'>, id?: string) {
 		Object.assign(this, props);
 		if(!id) {
 			this.id = v4();
+		}
+		if(!this.imageUrl) {
+			this.imageUrl = '';
 		}
 
 	}

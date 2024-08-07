@@ -26,11 +26,19 @@ export class UserController {
       
 		const passwordHash = await bcrypt.hash(password, UserController.rounds);
 
+		let image = '';
+
+		if(req.file) {
+			image = req.file.filename;
+			console.log(image);
+			
+		}
+
 
 
 		try {
 			const resp =  await UserController.repo.create({
-				name, email, phone, password: passwordHash, CPF
+				name, email, phone, password: passwordHash, CPF, imageUrl: image
 			});
 
 	
